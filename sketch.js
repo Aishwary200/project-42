@@ -4,7 +4,7 @@ const Bodies = Matter.Bodies;
 
 var engine,world;
 var drops=[]
-var thunder1,thunder2,thunder3,thunder4;
+var thunder1,thunder2,thunder3,thunder4,thunderS;
 var thunder;
 var maxDrops=100
 var umbrella;
@@ -14,20 +14,21 @@ function preload(){
     thunder2=loadImage("images/thunderbolt/2.png");
     thunder3=loadImage("images/thunderbolt/3.png");
     thunder4=loadImage("images/thunderbolt/4.png");
+    thunderS=loadSound("thunder.mp3");
 }
 
 function setup(){
-   createCanvas(800,800)
+   createCanvas(1365,1000)
     engine=Engine.create()
     world=engine.world;
-    thunder=createSprite(400,20,20,100)
+    thunder=createSprite(600,20,20,100)
     thunder.visible=false
     if(frameCount%150===0){
         for(var i=0;i<maxDrops;i++){
             drops.push(new Drop(random(0,800),random(0,400)))
         }
     }
-    umbrella=new Umbrella(400,400)
+    umbrella=new Umbrella(600,600)
     umbrella.scale=0.2;
     Engine.run(engine)
 }
@@ -37,10 +38,11 @@ function draw(){
     // var randomNum=Math.round(random)
     Engine.update(engine)
     //console.log(frameCount)
-    if(frameCount%24===0){
+    if(frameCount%100===0){
     thunder.visible=true
+    thunderS.play()
     }
-    else if(frameCount%12!==0){
+    else if(frameCount%100!==0){
         thunder.visible=false
     }
 
